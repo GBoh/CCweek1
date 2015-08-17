@@ -14,6 +14,7 @@ namespace MyFirstGitApp
 
             Console.Write(DateTime.Now);
             Console.ReadLine();
+
         }
     }
 }
