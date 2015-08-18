@@ -30,10 +30,10 @@ namespace CrazyMath
     {
         static void Main(string[] args)
         {
-            Console.WriteLine(FunnyMath.CalculateNumbers(2, 2,2,2));
+            Console.WriteLine(FunnyMath.CalculateNumbers(2, 2, 2, 2));
             Console.ReadLine();
         }
     }
 
-    
+
 }

@@ -23,26 +23,41 @@ namespace contrarian
             var messageArray = userMessage.Split(' ');
 
             //itterates through array to look for words to disagree with
-            for (int i = 0; i < messageArray.Length; i++)
+            var wordFound = false;
+            var i = 0;
+            while (!wordFound)
             {
                 //Console.WriteLine(messageArray[i]);
-
-                //switch case to find words similar to "like", "don't like"
-                switch (messageArray[i])
+                if (messageArray[i] == "don't")
                 {
-                    case "like":
-                        //Console.WriteLine("found the word like at array position " + i);
-                        messageArray[i] = "don't like";
-                        break;
-
-                    case "don't":
-                        messageArray[i] = "";
-                        break;
-
+                    messageArray[i] = "";
+                    wordFound = true;
+                    break;
                 }
+
+                if (messageArray[i] == "like")
+                {
+                    messageArray[i] = "don't like";
+                    wordFound = true;
+                    break;
+                }
+                i++;
             }
-            Console.WriteLine(string.Join(" ", messageArray));
+            Console.WriteLine(string.Join(" ", messageArray.Where(s => !String.IsNullOrEmpty(s))));
             Console.ReadLine();
         }
+
+        //public string[] Where(string[] messageArray)
+        //{
+        //    List<string> temp = new List<string>();
+        //    foreach(var s in messageArray)
+        //    {
+        //        if (!String.IsNullOrEmpty(s))
+        //        {
+        //            temp.Add(s);
+        //        }
+        //    }
+        //    return temp.ToArray<string>();
+        //}
     }
 }
