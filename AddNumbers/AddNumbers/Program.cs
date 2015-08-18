@@ -10,7 +10,7 @@ namespace AddNumbers
     {
         static void Main(string[] args)
         {
-            var result = addNumbers(2, 3);
+            var result = addNumbers(2, 3, 5);
             Console.WriteLine(result);
             Console.ReadLine();
         }
@@ -19,9 +19,9 @@ namespace AddNumbers
         {
             var sum = 0;
 
-            for (int i = 0; i < number.Length; i++)
+            foreach (var value in number)
             {
-                sum += number[i];
+                sum += value;
             }
 
             return sum;
