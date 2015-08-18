@@ -43,21 +43,45 @@ namespace MyFirstGitApp
             //yoda speak
 
 
-            //gets a message written by the user
-            var message = Console.ReadLine();
-            //dispay message test
-            //Console.WriteLine(message);
+            ////gets a message written by the user
+            //var message = Console.ReadLine();
+            ////dispay message test
+            ////Console.WriteLine(message);
 
-            //convert message to array, split on spaces
-            var reverseMessage = message.Split(' ');
-            //reverse array
-            Array.Reverse(reverseMessage);
+            ////convert message to array, split on spaces
+            //var reverseMessage = message.Split(' ');
+            ////reverse array
+            //Array.Reverse(reverseMessage);
 
-            //write reversed message
-            Console.WriteLine(string.Join(" ",reverseMessage));
-            
+            ////write reversed message
+            //Console.WriteLine(string.Join(" ", reverseMessage));
 
-            //stop
+
+            ////stop
+            //Console.ReadLine();
+
+            ////////////////////////////////////////////
+            //news ticker switch case
+
+
+            Random rnd = new Random();
+
+
+            switch (rnd.Next(1, 4))
+            {
+                case 1:
+                    Console.WriteLine("Life gave you lemons");
+                 break;
+
+                case 2:
+                    Console.WriteLine("Life gave Cave Johnson lemons");
+                    break;
+
+                case 3:
+                    Console.WriteLine("Life was blown up by lemon grenades");
+                    break;
+            }
+
             Console.ReadLine();
         }
     }
