@@ -22,7 +22,7 @@ namespace PlayMovieQuotes
                 //gets a random number
                 var player =  new SoundPlayer();
                 Random rnd = new Random();
-                switch (rnd.Next(0, 4))
+                switch (rnd.Next(1, 4))
                 {
                     case 1:
                         Console.WriteLine("You feeling lucky punk?");
