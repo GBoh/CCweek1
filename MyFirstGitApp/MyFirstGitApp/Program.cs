@@ -12,6 +12,7 @@ namespace MyFirstGitApp
     {
         static void Main(string[] args)
         {
+            //asks for date and converts it to large format
             ////informs the user of what to do
             //console.writeline("enter you date");
 
@@ -23,15 +24,40 @@ namespace MyFirstGitApp
             ////to hold the code at the end to double check
             //console.readline();
 
-            Random rnd = new Random();
 
-            var newsTicker = new string[]
-            {
-                "Martians attack!","Life gives Cave Jonson Lemons","Life has been blown up by lemon grenades"
-            };
+            ////////////////////////////////////////////
+            //picks random news tick
 
-            int pickMessage = rnd.Next(0, newsTicker.Length);
-            Console.WriteLine(newsTicker[pickMessage]);
+            //Random rnd = new Random();
+
+            //var newsTicker = new string[]
+            //{
+            //    "Martians attack!","Life gives Cave Jonson Lemons","Life gets blown up by lemon grenades"
+            //};
+
+            //int message = rnd.Next(0, newsTicker.Length);
+            //Console.WriteLine(newsTicker[message]);
+            //Console.ReadLine();
+
+            ////////////////////////////////////////////
+            //yoda speak
+
+
+            //gets a message written by the user
+            var message = Console.ReadLine();
+            //dispay message test
+            //Console.WriteLine(message);
+
+            //convert message to array, split on spaces
+            var reverseMessage = message.Split(' ');
+            //reverse array
+            Array.Reverse(reverseMessage);
+
+            //write reversed message
+            Console.WriteLine(string.Join(" ",reverseMessage));
+            
+
+            //stop
             Console.ReadLine();
         }
     }
