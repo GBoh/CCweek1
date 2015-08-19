@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 namespace Inheritance
 {
 
-    //abstract employee class that has the elements all other kinds of employee will have
-    abstract class Employee
+    //employee class that has the elements all other kinds of employee will have
+    class Employee
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }

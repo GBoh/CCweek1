@@ -41,7 +41,6 @@ namespace ProductWithConstructor
                 default:
                     break;
             }
-
             Console.WriteLine("The product {0} costs {2:C}, there are {3} left in stock. This product is {1}", item1.Name, item1.Description, item1.Price, item1.Stock);
             Console.ReadLine();
         }

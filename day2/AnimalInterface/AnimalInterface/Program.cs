@@ -45,7 +45,7 @@ namespace AnimalInterface
 
     class AnimalUtility
     {
-        public void DoSomething(string animal)
+        public static void DoSomething(string animal)
         {
 
         }
@@ -62,9 +62,10 @@ namespace AnimalInterface
             //    new Animal {Name = "Sam the Eagle", Sound = "I am not amused" }
 
             //};
-            
+
 
             //Console.WriteLine(animal1.MakeSound());
+            AnimalUtility.DoSomething(Console.ReadLine());
             Console.ReadLine();
         }
     }
