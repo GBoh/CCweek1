@@ -9,5 +9,10 @@ namespace WordCount
 {
     class Counter
     {
+        //gets argument string and splits on the spaces returning length
+        public static int CountWords(string sentence)
+        {
+             return sentence.Split(' ').Length;
+        }
     }
 }
