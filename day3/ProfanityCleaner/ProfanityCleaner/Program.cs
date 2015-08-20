@@ -31,9 +31,7 @@ namespace ProfanityCleaner
                 {
                     sb.Append(word + " ");
                 }
-
             }
-            //Console.WriteLine(sb.ToString());
             return sb.ToString();
         }
     }
