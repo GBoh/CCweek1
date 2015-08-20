@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace RockPaperScisssors
+﻿namespace RockPaperScisssors
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+
     public interface IPlayer
     {
         int NumberOfWins { get; set; }
@@ -59,17 +59,18 @@ namespace RockPaperScisssors
             {
                 player1.NumberOfWins++;
             }
+
             if (player1.Act() == "rock" && player2.Act() == "paper")
             {
                 player2.NumberOfWins++;
             }
+
             if (player1.Act() == "scissors" && player2.Act() == "paper")
             {
                 player1.NumberOfWins++;
             }
         }
     }
-
 
     class Program
     {
@@ -78,9 +79,7 @@ namespace RockPaperScisssors
             var rock = new PlayerRock();
             var scissors = new PlayerSciccors();
             var paper = new PlayerPaper();
-
-
-
+            
             Random rnd = new Random();
             for (int i = 0; i < 100; i++)
             {
@@ -97,20 +96,15 @@ namespace RockPaperScisssors
                         Game.Fight(scissors, paper);
                         break;
                 }
-                //Console.WriteLine(rnd.Next(3));
             }
             Console.WriteLine("Rock won {0} times", rock.NumberOfWins);
             Console.WriteLine("Paper won {0} times", paper.NumberOfWins);
             Console.WriteLine("Scissor won {0} times", scissors.NumberOfWins);
 
             var winner = MostWins(rock, paper, scissors);
-
             Console.WriteLine("the winner is " + winner);
-
-
             Console.ReadLine();
         }
-
         public static string MostWins(params IPlayer[] inputs)
         {
             var highestScore = 0;
@@ -123,7 +117,6 @@ namespace RockPaperScisssors
                     winner = inputs[i].Act();
                 }
             }
-
             return winner;
         }
     }
