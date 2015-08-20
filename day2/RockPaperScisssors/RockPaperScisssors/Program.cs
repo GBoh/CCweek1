@@ -53,25 +53,20 @@ namespace RockPaperScisssors
 
     class Game
     {
-        public static IPlayer Fight(IPlayer player1, IPlayer player2)
+        public static void Fight(IPlayer player1, IPlayer player2)
         {
             if (player1.Act() == "rock" && player2.Act() == "scissors")
             {
                 player1.NumberOfWins++;
-                return player1;
             }
             if (player1.Act() == "rock" && player2.Act() == "paper")
             {
                 player2.NumberOfWins++;
-                return player2;
             }
             if (player1.Act() == "scissors" && player2.Act() == "paper")
             {
                 player1.NumberOfWins++;
-                return player1;
             }
-
-            return null;
         }
     }
 
