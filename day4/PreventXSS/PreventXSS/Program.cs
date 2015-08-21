@@ -6,19 +6,83 @@ using System.Threading.Tasks;
 
 namespace PreventXSS
 {
-    class Tag
-    {
-      public string HtmlTag { get; set; }
-    }
+    //public class Tag
+    //{
+    //  public string HtmlTag { get; set; }
+    //}
 
     public class Security
     {
-       
-        public static string SanitizeHTML(string htmlTag, List<Tag> whitelist)
+
+        public static string SanitizeHTML(string badString, List<string> whitelist)
         {
-            //check string elements against whitelist
-            //iterate through each char and check to see if it matches one of the whitelist tags
-            //if it doesn't replace the < with &lt; and > with &gt;
+            //find position of < character and store it as startIndex
+            //iterate through until a > character is found and store as lastIndex
+            //store the characters between startIndex and lastIndex as a string.
+            //check the string against the whitelist
+            //if it isn't in the whitelist replace the char at startIndex with  &lt; 
+            //and replace the char at lastIndext with &gt;
+            //begin +1 of last index and run again until end of string.
+
+            var startIndex = 0;
+            var lastIndex = 0;
+            var tagLength = 0;
+            string tagToCheck = null;
+            string cleanString;
+
+            startIndex = badString.IndexOf("<");
+            lastIndex = badString.IndexOf(">");
+
+            var testString = badString.Substring(startIndex, lastIndex + 1);
+
+            while (startIndex >= 0)
+            {
+                //find the < character and the > character and stores their positions
+                //also starts at +1 of it's position if it isn't the first time, through
+                startIndex = badString.IndexOf("<", startIndex);
+                lastIndex = badString.IndexOf(">", lastIndex);
+
+                //gets the length of the tag by substracting lastIndex from startIndex and adding 1
+                tagLength = ((lastIndex - startIndex) + 1);
+                Console.WriteLine("lastIndex is {0} start index is {1} the tag length is {2}", lastIndex, startIndex, tagLength);
+
+                //check to make sure that startIndex is not -1 so that substring will start
+                if (startIndex > 0)
+                {
+                    //stores the tag based on the startIndex and the tagLength
+                    tagToCheck = badString.Substring(startIndex, tagLength);
+                }//breaks out of the while loop to avoid infinite loop
+                if (startIndex == -1)
+                {
+                    break;
+                }
+
+                //adds one to the startIndex and lastIndex
+                startIndex++;
+                lastIndex++;
+
+                Console.WriteLine(startIndex);
+                Console.WriteLine(lastIndex);
+
+                if (whitelist.Contains(tagToCheck))
+                {
+                    Console.WriteLine("Found {0} tag ignoring", testString);
+                }
+                else
+                {
+                    Console.WriteLine("{0} is a evil tag, replacing soon", tagToCheck);
+                }
+
+                //Console.WriteLine(startIndex);
+            }
+
+
+
+            //Console.WriteLine(startIndex);
+            //Console.WriteLine(lastIndex);
+
+
+            return null;
         }
     }
 
@@ -28,40 +92,45 @@ namespace PreventXSS
         {
             var testHTML = @"<b>hello</b><script>evil</script>";
 
-            var whitelist = new List<Tag>();
-            whitelist.Add(new Tag { HtmlTag = "<b>" });
-            whitelist.Add(new Tag { HtmlTag = "</b>" });
-            whitelist.Add(new Tag { HtmlTag = "<p>" });
-            whitelist.Add(new Tag { HtmlTag = "</p>" });
-            whitelist.Add(new Tag { HtmlTag = "<table>" });
-            whitelist.Add(new Tag { HtmlTag = "</table>" });
-            whitelist.Add(new Tag { HtmlTag = "<ul>" });
-            whitelist.Add(new Tag { HtmlTag = "</ul>" });
-            whitelist.Add(new Tag { HtmlTag = "<ol>" });
-            whitelist.Add(new Tag { HtmlTag = "</ol>" });
-            whitelist.Add(new Tag { HtmlTag = "<li>" });
-            whitelist.Add(new Tag { HtmlTag = "</li>" });
-            whitelist.Add(new Tag { HtmlTag = "<tr>" });
-            whitelist.Add(new Tag { HtmlTag = "</tr>" });
-            whitelist.Add(new Tag { HtmlTag = "<td>" });
-            whitelist.Add(new Tag { HtmlTag = "</td>" });
-            whitelist.Add(new Tag { HtmlTag = "<th>" });
-            whitelist.Add(new Tag { HtmlTag = "</th>" });
-            whitelist.Add(new Tag { HtmlTag = "<h1>" });
-            whitelist.Add(new Tag { HtmlTag = "</h1>" });
-            whitelist.Add(new Tag { HtmlTag = "<h2>" });
-            whitelist.Add(new Tag { HtmlTag = "</h2>" });
-            whitelist.Add(new Tag { HtmlTag = "<h3>" });
-            whitelist.Add(new Tag { HtmlTag = "</h3>" });
-            whitelist.Add(new Tag { HtmlTag = "<h4>" });
-            whitelist.Add(new Tag { HtmlTag = "</h4>" });
-            whitelist.Add(new Tag { HtmlTag = "<h5>" });
-            whitelist.Add(new Tag { HtmlTag = "</h5>" });
-            whitelist.Add(new Tag { HtmlTag = "<h6>" });
-            whitelist.Add(new Tag { HtmlTag = "</h6>" });
+            var whitelist = new List<string>();
+            whitelist.Add("<b>");
+            whitelist.Add("</b>");
+            whitelist.Add("<p>");
+            whitelist.Add("</p>");
+            whitelist.Add("<table>");
+            whitelist.Add("</table>");
+            whitelist.Add("<ul>");
+            whitelist.Add("</ul>");
+            whitelist.Add("<ol>");
+            whitelist.Add("</ol>");
+            whitelist.Add("<li>");
+            whitelist.Add("</li>");
+            whitelist.Add("<tr>");
+            whitelist.Add("</tr>");
+            whitelist.Add("<td>");
+            whitelist.Add("</td>");
+            whitelist.Add("<th>");
+            whitelist.Add("</th>");
+            whitelist.Add("<h1>");
+            whitelist.Add("</h1>");
+            whitelist.Add("<h2>");
+            whitelist.Add("</h2>");
+            whitelist.Add("<h3>");
+            whitelist.Add("</h3>");
+            whitelist.Add("<h4>");
+            whitelist.Add("</h4>");
+            whitelist.Add("<h5>");
+            whitelist.Add("</h5>");
+            whitelist.Add("<h6>");
+            whitelist.Add("</h6>");
 
+            if (whitelist.Contains("<b>"))
+            {
+
+            }
             var sanitizedString = Security.SanitizeHTML(testHTML, whitelist);
             Console.WriteLine(sanitizedString);
+            Console.ReadLine();
         }
     }
 }
