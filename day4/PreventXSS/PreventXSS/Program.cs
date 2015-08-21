@@ -14,6 +14,14 @@ namespace PreventXSS
     public class Security
     {
 
+        private static string ReplaceTag(string tag)
+        {
+            string tmpClean;
+            tmpClean = tag.Replace("<", "&lt;");
+            var cleanedTag = tmpClean.Replace(">", "&gt;");
+            return cleanedTag;
+        }
+
         public static string SanitizeHTML(string badString, List<string> whitelist)
         {
             //find position of < character and store it as startIndex
@@ -28,17 +36,20 @@ namespace PreventXSS
             var lastIndex = 0;
             var tagLength = 0;
             string tagToCheck = null;
-            string cleanString;
+            StringBuilder cleanString = new StringBuilder();
+            cleanString.Append(badString);
 
-            startIndex = badString.IndexOf("<");
-            lastIndex = badString.IndexOf(">");
+            //sets initial start and last index
+            startIndex = cleanString.ToString().IndexOf("<");
+            lastIndex = cleanString.ToString().IndexOf(">");
+
 
             while (startIndex >= 0)
             {
                 //find the < character and the > character and stores their positions
                 //also starts at +1 of it's position if it isn't the first time, through
-                startIndex = badString.IndexOf("<", startIndex);
-                lastIndex = badString.IndexOf(">", lastIndex);
+                startIndex = cleanString.ToString().IndexOf("<", startIndex);
+                lastIndex = cleanString.ToString().IndexOf(">", lastIndex);
 
                 //gets the length of the tag by substracting lastIndex from startIndex and adding 1
                 tagLength = ((lastIndex - startIndex) + 1);
@@ -49,24 +60,19 @@ namespace PreventXSS
                     break;
                 }
 
-                //check to make sure that startIndex is not -1 so that substring will start
                 //stores the tag based on the startIndex and the tagLength
-                if (startIndex >= 0)
-                {
-                    tagToCheck = badString.Substring(startIndex, tagLength);
-                }
-
-                //adds one to the startIndex and lastIndex
-                startIndex++;
-                lastIndex++;
+                tagToCheck = cleanString.ToString().Substring(startIndex, tagLength);
 
                 if (!whitelist.Contains(tagToCheck))
                 {
-                    Console.WriteLine("{0} is a evil tag, replacing soon", tagToCheck);
+                    cleanString.Replace(tagToCheck, ReplaceTag(tagToCheck), startIndex, tagLength);
                 }
+                //adds one to the startIndex and lastIndex
+                startIndex++;
+                lastIndex++;
             }
 
-            return null;
+            return cleanString.ToString();
         }
     }
 
@@ -113,7 +119,7 @@ namespace PreventXSS
 
             }
             var sanitizedString = Security.SanitizeHTML(testHTML, whitelist);
-            //Console.WriteLine(sanitizedString);
+            Console.WriteLine(sanitizedString);
             Console.ReadLine();
         }
     }
