@@ -29,7 +29,16 @@ namespace CatCounter
 
         public static int CountCats2(string sentence)
         {
-            return 0;
+            int numberOfCats = 0;
+            string findCat = "cat";
+            int index = 0;
+
+            while ((index = sentence.IndexOf(findCat, index)) != -1)
+            {
+                index += findCat.Length;
+                numberOfCats++;
+            }
+            return numberOfCats;
         }
 
         static void Main(string[] args)
@@ -37,31 +46,39 @@ namespace CatCounter
 
             //copypasted code from MSDN to read file from disc(added @ so didn't have to do \\)
             System.IO.StreamReader myFile = new System.IO.StreamReader(@"C:\programming\CCweek1\day4\CatCounter\CatCounter\cat.txt");
-                string catSentence = myFile.ReadToEnd();
+            string catSentence = myFile.ReadToEnd();
 
-
+            //var for ammount of cats and stopwatch
             var stopwatch = new Stopwatch();
             int catNumber;
 
+            //timer and method
             stopwatch.Start();
+
             catNumber = CountCats1(catSentence);
+
             stopwatch.Stop();
 
+            //writes results for first counter
             Console.WriteLine(catNumber);
             Console.WriteLine("was the number of times cat appeared");
             Console.WriteLine("It took {0} milliseconds", stopwatch.ElapsedMilliseconds);
 
+            ////////////////////////////////////
+            ////seperator and addeds some blanck space
+            Console.WriteLine("\n\n");
 
-            ////////////////////////////////////way 2
+            //timer and method
+            stopwatch.Start();
 
+            catNumber = CountCats2(catSentence);
 
-            //stopwatch.Start();
-            //catNumber = CountCats2(catSentence);
-            //stopwatch.Stop();
+            stopwatch.Stop();
 
-            //Console.WriteLine(catNumber);
-            //Console.WriteLine("was the number of times cat appeared");
-            //Console.WriteLine("It took {0} milliseconds", stopwatch.ElapsedMilliseconds);
+            //writes results for second counter
+            Console.WriteLine(catNumber);
+            Console.WriteLine("was the number of times cat appeared");
+            Console.WriteLine("It took {0} milliseconds", stopwatch.ElapsedMilliseconds);
 
 
 
