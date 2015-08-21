@@ -11,7 +11,7 @@ namespace PreventXSS
     //  public string HtmlTag { get; set; }
     //}
 
-    public class Security
+    class Security
     {
 
         private static string ReplaceTag(string tag)
