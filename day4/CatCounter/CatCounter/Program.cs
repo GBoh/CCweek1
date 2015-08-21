@@ -27,7 +27,7 @@ namespace CatCounter
             return numberOfCats;
         }
 
-        public static int CountCats2(string sentences
+        public static int CountCats2(string sentence)
         {
             int numberOfCats = 0;
             string findCat = "cat";
