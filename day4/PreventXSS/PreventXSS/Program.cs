@@ -22,15 +22,15 @@ namespace PreventXSS
             return cleanedTag;
         }
 
-        public static string SanitizeHTML(string badString, List<string> whitelist)
+        public string SanitizeHTML(string badString, List<string> whitelist)
         {
-            //find position of < character and store it as startIndex
-            //iterate through until a > character is found and store as lastIndex
-            //store the characters between startIndex and lastIndex as a string.
-            //check the string against the whitelist
-            //if it isn't in the whitelist replace the char at startIndex with  &lt; 
-            //and replace the char at lastIndext with &gt;
-            //begin +1 of last index and run again until end of string.
+            //find position of < character and store it as startIndex X
+            //find position of > character and store as lastIndex X
+            //store the characters between startIndex and lastIndex as a string. X
+            //check the string against the whitelist X
+            //if it isn't in the whitelist replace the char at startIndex with  &lt;  X
+            //and replace the char at lastIndext with &gt; X
+            //begin +1 of last index and run again until end of string. X
 
             var startIndex = 0;
             var lastIndex = 0;
@@ -80,7 +80,6 @@ namespace PreventXSS
     {
         static void Main(string[] args)
         {
-            var testHTML = @"<b>hello</b><script>evil</script>";
 
             var whitelist = new List<string>();
             whitelist.Add("<b>");
@@ -114,11 +113,10 @@ namespace PreventXSS
             whitelist.Add("<h6>");
             whitelist.Add("</h6>");
 
-            if (whitelist.Contains("<b>"))
-            {
+            var testHTML = @"<b>hello</b><script>evil</script>";
 
-            }
-            var sanitizedString = Security.SanitizeHTML(testHTML, whitelist);
+            var sanitizer = new Security();
+            var sanitizedString = sanitizer.SanitizeHTML(testHTML, whitelist);
             Console.WriteLine(sanitizedString);
             Console.ReadLine();
         }
