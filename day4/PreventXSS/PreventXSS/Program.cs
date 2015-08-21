@@ -33,8 +33,6 @@ namespace PreventXSS
             startIndex = badString.IndexOf("<");
             lastIndex = badString.IndexOf(">");
 
-            var testString = badString.Substring(startIndex, lastIndex + 1);
-
             while (startIndex >= 0)
             {
                 //find the < character and the > character and stores their positions
@@ -44,43 +42,29 @@ namespace PreventXSS
 
                 //gets the length of the tag by substracting lastIndex from startIndex and adding 1
                 tagLength = ((lastIndex - startIndex) + 1);
-                Console.WriteLine("lastIndex is {0} start index is {1} the tag length is {2}", lastIndex, startIndex, tagLength);
 
-                //check to make sure that startIndex is not -1 so that substring will start
-                if (startIndex > 0)
-                {
-                    //stores the tag based on the startIndex and the tagLength
-                    tagToCheck = badString.Substring(startIndex, tagLength);
-                }//breaks out of the while loop to avoid infinite loop
+                //breaks out of the while loop to avoid infinite loop
                 if (startIndex == -1)
                 {
                     break;
+                }
+
+                //check to make sure that startIndex is not -1 so that substring will start
+                //stores the tag based on the startIndex and the tagLength
+                if (startIndex >= 0)
+                {
+                    tagToCheck = badString.Substring(startIndex, tagLength);
                 }
 
                 //adds one to the startIndex and lastIndex
                 startIndex++;
                 lastIndex++;
 
-                Console.WriteLine(startIndex);
-                Console.WriteLine(lastIndex);
-
-                if (whitelist.Contains(tagToCheck))
-                {
-                    Console.WriteLine("Found {0} tag ignoring", testString);
-                }
-                else
+                if (!whitelist.Contains(tagToCheck))
                 {
                     Console.WriteLine("{0} is a evil tag, replacing soon", tagToCheck);
                 }
-
-                //Console.WriteLine(startIndex);
             }
-
-
-
-            //Console.WriteLine(startIndex);
-            //Console.WriteLine(lastIndex);
-
 
             return null;
         }
@@ -129,7 +113,7 @@ namespace PreventXSS
 
             }
             var sanitizedString = Security.SanitizeHTML(testHTML, whitelist);
-            Console.WriteLine(sanitizedString);
+            //Console.WriteLine(sanitizedString);
             Console.ReadLine();
         }
     }
